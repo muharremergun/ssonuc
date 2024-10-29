@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Yönetici Paneli</title>
+</head>
+<body>
+    <h2>Yönetici Paneli</h2>
+
+    <h3>Excel Dosyası Yükle</h3>
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".xlsx" required>
+        <button type="submit">Yükle</button>
+    </form>
+    
+    <h3>Yüklenen Dosyalar</h3>
+    <ul>
+        {% for file in files %}
+        <li>
+            {{ file }}
+            <form method="POST" action="{{ url_for('delete_file', filename=file) }}" style="display:inline;">
+                <button type="submit">Sil</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+    
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+    
+    <a href="{{ url_for('index') }}">Ana Sayfaya Dön</a>
+</body>
+</html>
