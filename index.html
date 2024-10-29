@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Öğrenci Giriş</title>
+</head>
+<body>
+    <h2>Öğrenci Giriş</h2>
+    <form method="POST">
+        <label>Öğrenci Numarası:</label>
+        <input type="text" name="student_id" required><br><br>
+        
+        <label>T.C. Kimlik No:</label>
+        <input type="text" name="tc_no" required><br><br>
+        
+        <label>Ders Seçin:</label>
+        <select name="course">
+            {% for course in courses %}
+            <option value="{{ course }}">{{ course }}</option>
+            {% endfor %}
+        </select><br><br>
+        
+        <button type="submit">Giriş Yap</button>
+    </form>
+
+    <!-- Yönetici Girişi Linki -->
+    <p><a href="{{ url_for('admin_login') }}">Yönetici Girişi</a></p>
+
+    <!-- Hata mesajlarını göster -->
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+</body>
+</html>
